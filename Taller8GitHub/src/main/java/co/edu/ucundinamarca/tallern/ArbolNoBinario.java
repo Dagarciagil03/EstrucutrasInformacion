@@ -24,6 +24,32 @@ class Proyecto_EstructuraI {
         }
     }
 
+    public void INORDEN(Nodo nodo) {
+        Logger logger;
+        logger = Logger.getLogger("Inorden");
+
+        if (nodo.nohijos == 0) {
+            logger.log(Level.INFO, nodo.getDato());
+
+        } else if (nodo.nohijos > 0) {
+            INORDEN(nodo.hijos[0]);
+            logger.log(Level.INFO, nodo.getDato());
+            for (int i = 1; i < nodo.nohijos; i++) {
+                INORDEN(nodo.hijos[i]);
+            }
+        }
+    }
+
+    public void POSTORDEN(Nodo nodo) {
+        Logger logger;
+        logger = Logger.getLogger("Postorden");
+
+        for (int i = 0; i < nodo.nohijos; i++) {
+            POSTORDEN(nodo.hijos[i]);
+        }
+        logger.log(Level.INFO, nodo.getDato());
+    }
+
     public void InsertarRecursivo(Nodo nodo, String dato, String padre) {
         Nodo nuevo = new Nodo(dato);
         if (nodo.getDato().equals(padre)) {
@@ -52,7 +78,10 @@ class Proyecto_EstructuraI {
         arbol.InsertarRecursivo(nodo, "C.F", "C");
 
         arbol.InsertarRecursivo(nodo, "F.G", "C.F");
-        arbol.PREORDEN(nodo);
+        arbol.PREORDEN(nodo); //6.64
+        arbol.INORDEN(nodo); //6.677
+        arbol.POSTORDEN(nodo); // 7.252
+
     }
 }
 
@@ -93,7 +122,7 @@ class Nodo {
 
     public void PREORDEN() {
         Logger logger;
-        logger = Logger.getLogger("HashMap");
+        logger = Logger.getLogger("Preorden");
         logger.log(Level.INFO, "PREORDEN {" + info + "}");
 
     }
